@@ -15,6 +15,10 @@ export const MyCartContext=()=>{
 
 const CartProvider=({children})=>{
   const [state,dispatch] = useReducer(reducer,initState)
+
+  const removeItem=(id)=>{
+    dispatch({type:"REMOVE_ITEM",payload:id})
+  }
   return(
     <CartContext.Provider value={{...state}}>
       {children}
