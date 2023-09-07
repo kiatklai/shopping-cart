@@ -19,8 +19,16 @@ const CartProvider=({children})=>{
   const removeItem=(id)=>{
     dispatch({type:"REMOVE_ITEM",payload:id})
   }
+
+  const toggleQuantity=(id,type)=>{
+    if(type == "increment"){
+      console.log("add",id)
+    }else{
+      console.log("reduce ",id)
+    }
+  }
   return(
-    <CartContext.Provider value={{...state}}>
+    <CartContext.Provider value={{...state,removeItem,toggleQuantity}}>
       {children}
     </CartContext.Provider>
   )
