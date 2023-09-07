@@ -1,4 +1,4 @@
-import {createContext,useReducer,useContext} from "react"
+import {createContext,useReducer,useContext,useEffect} from "react"
 import CartData from "../data/CartData"
 import reducer from "./reducer"
 
@@ -16,6 +16,10 @@ export const MyCartContext=()=>{
 const CartProvider=({children})=>{
   const [state,dispatch] = useReducer(reducer,initState)
 
+  useEffect(()=>{
+    dispatch({type:"CALCULATE_TOTAL"})
+  },[state.cart])
+
   const removeItem=(id)=>{
     dispatch({type:"REMOVE_ITEM",payload:id})
   }
@@ -23,6 +27,7 @@ const CartProvider=({children})=>{
   const toggleQuantity=(id,type)=>{
    dispatch({type:"TOGGLE_QUANTITY",payload:{id,type}})
   }
+
   return(
     <CartContext.Provider value={{...state,removeItem,toggleQuantity}}>
       {children}

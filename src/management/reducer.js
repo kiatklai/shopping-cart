@@ -27,6 +27,21 @@ const reducer=(state,action)=>{
       ...state,cart:newCart
     }
   }
+  if(action.type === "CALCULATE_TOTAL"){
+    const {total,amount}= state.cart.reduce((cartTotal,item)=>{
+      const {price,quantity} = item
+      const itemTotal = price * quantity
+      cartTotal.total += itemTotal
+      cartTotal.amount += quantity
+      return cartTotal
+    },{
+      total:0,
+      amount:0
+    })
+    return{
+      ...state,total,amount
+    }
+  }
 }
 
 export default reducer
